@@ -21,11 +21,17 @@ body {
 }
 
 .hero_animation {
-  background-color: linear-gradient(
+  background: linear-gradient(
     147.92deg,
     hsla(239, 76%, 53%, 0.456) 10.41%,
     hsla(0, 0%, 100%, 0) 89.25%
   );
+  // background: rgb(44, 47, 226);
+  // background-color: linear-gradient(
+  //   147deg,
+  //   rgba(44, 47, 226, 1) 10.41%,
+  //   rgba(255, 255, 255, 1) 89.25%
+  // );
   animation: changeBgColor 8s infinite alternate;
 }
 

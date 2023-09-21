@@ -9,6 +9,7 @@ interface Props {}
 const Page: FC<Props> = () => {
   const [open, setOpen] = useState(false);
   const [activeItem, setActiveItem] = useState(0);
+  const [route, setRoute] = useState("Login");
 
   return (
     <div>
@@ -21,7 +22,10 @@ const Page: FC<Props> = () => {
         open={open}
         setOpen={setOpen}
         activeItem={activeItem}
+        route={route}
+        setRoute={setRoute}
       />
+      {/* <div className="hero_animation w-[500px] rounded-full h-[500px] border"></div> */}
       <Hero />
     </div>
   );

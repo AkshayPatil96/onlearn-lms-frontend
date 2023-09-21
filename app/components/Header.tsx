@@ -1,17 +1,23 @@
 "use client";
+import CustomModal from "@/utils/Sections/CustomModal";
 import NavItems from "@/utils/Sections/NavItems";
 import ThemeSwitcher from "@/utils/Sections/ThemeSwitcher";
 import Link from "next/link";
 import React, { FC, useState } from "react";
 import { HiOutlineMenuAlt3, HiOutlineUserCircle } from "react-icons/hi";
+import Login from "./auth/Login";
+import SignUp from "./auth/SignUp";
+import Verify from "./auth/Verify";
 
 type Props = {
   open: boolean;
   setOpen: (open: boolean) => void;
   activeItem: number;
+  route: string;
+  setRoute: (route: string) => void;
 };
 
-const Header: FC<Props> = ({ activeItem, open, setOpen }) => {
+const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
   const [active, setActive] = useState(false);
   const [openSideBar, setOpenSideBar] = useState(false);
 
@@ -98,6 +104,47 @@ const Header: FC<Props> = ({ activeItem, open, setOpen }) => {
           </div>
         )}
       </div>
+
+      {route === "Sign-Up" ? (
+        <>
+          {open && (
+            <CustomModal
+              activeItem={activeItem}
+              open={open}
+              setOpen={setOpen}
+              route={route}
+              setRoute={setRoute}
+              Component={SignUp}
+            />
+          )}
+        </>
+      ) : route === "Login" ? (
+        <>
+          {open && (
+            <CustomModal
+              activeItem={activeItem}
+              open={open}
+              setOpen={setOpen}
+              route={route}
+              setRoute={setRoute}
+              Component={Login}
+            />
+          )}
+        </>
+      ) : route === "Verify" ? (
+        <>
+          {open && (
+            <CustomModal
+              activeItem={activeItem}
+              open={open}
+              setOpen={setOpen}
+              route={route}
+              setRoute={setRoute}
+              Component={Verify}
+            />
+          )}
+        </>
+      ) : null}
     </div>
   );
 };
