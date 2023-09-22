@@ -1,6 +1,8 @@
+"use client";
+import { useLoginMutation } from "@/redux/features/auth/authApi";
 import { styles } from "../../styles/style";
 import { useFormik } from "formik";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import {
   AiFillGithub,
   AiOutlineEye,
@@ -8,9 +10,10 @@ import {
 } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import * as Yup from "yup";
+import toast from "react-hot-toast";
 
 type Props = {
-  // setOpen: (open: boolean) => void;
+  setOpen: (open: boolean) => void;
   setRoute: (route: string) => void;
 };
 
@@ -21,8 +24,24 @@ const LoginSchema = Yup.object().shape({
   password: Yup.string().required("Please enter your password").min(6),
 });
 
-const Login: FC<Props> = ({ setRoute }) => {
+const Login: FC<Props> = ({ setRoute, setOpen }) => {
   const [show, setShow] = useState(false);
+  const [login, { isSuccess, error, isLoading, data }] = useLoginMutation();
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Login Successful");
+      setOpen(false);
+    }
+    if (error) {
+      if ("data" in error) {
+        const errorData = error as any;
+        toast.error(errorData.data.message);
+      } else {
+        toast.error("An error occured: ", error as any);
+      }
+    }
+  }, [isSuccess, error]);
 
   const formik = useFormik({
     initialValues: {
@@ -31,7 +50,7 @@ const Login: FC<Props> = ({ setRoute }) => {
     },
     validationSchema: LoginSchema,
     onSubmit: async ({ email, password }) => {
-      console.log(email, password);
+      await login({ email, password });
     },
   });
 
@@ -65,37 +84,39 @@ const Login: FC<Props> = ({ setRoute }) => {
             )}
           </div>
 
-          <div className="w-full mt-5 relative mb-1">
+          <div className="">
             <label
               htmlFor="email"
               className={`${styles.label}`}
             >
               Enter your Password
             </label>
-            <input
-              type={!show ? "password" : "text"}
-              name="password"
-              id="password"
-              placeholder="password!@%"
-              className={`${
-                errors.password && touched.password && "border-red-500"
-              } ${styles.input}`}
-              onChange={handleChange}
-              value={values.password}
-            />
-            {!show ? (
-              <AiOutlineEye
-                size={20}
-                className="absolute right-2 bottom-3 z-1 cursor-pointer"
-                onClick={() => setShow(!show)}
+            <div className="w-full mt-5 relative mb-1">
+              <input
+                type={!show ? "password" : "text"}
+                name="password"
+                id="password"
+                placeholder="password!@%"
+                className={`${
+                  errors.password && touched.password && "border-red-500"
+                } ${styles.input}`}
+                onChange={handleChange}
+                value={values.password}
               />
-            ) : (
-              <AiOutlineEyeInvisible
-                size={20}
-                className="absolute right-2 bottom-3 z-1 cursor-pointer"
-                onClick={() => setShow(!show)}
-              />
-            )}
+              {!show ? (
+                <AiOutlineEye
+                  size={20}
+                  className="absolute right-2 bottom-3 z-1 cursor-pointer"
+                  onClick={() => setShow(!show)}
+                />
+              ) : (
+                <AiOutlineEyeInvisible
+                  size={20}
+                  className="absolute right-2 bottom-3 z-1 cursor-pointer"
+                  onClick={() => setShow(!show)}
+                />
+              )}
+            </div>
             {errors.password && touched.password && (
               <span className={styles.error}>{errors.password}</span>
             )}

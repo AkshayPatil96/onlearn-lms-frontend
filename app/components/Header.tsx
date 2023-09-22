@@ -2,9 +2,12 @@
 import CustomModal from "@/utils/Sections/CustomModal";
 import NavItems from "@/utils/Sections/NavItems";
 import ThemeSwitcher from "@/utils/Sections/ThemeSwitcher";
+import Image from "next/image";
 import Link from "next/link";
 import React, { FC, useState } from "react";
 import { HiOutlineMenuAlt3, HiOutlineUserCircle } from "react-icons/hi";
+import { useSelector } from "react-redux";
+import Avatar from "../../public/assets/images/avatar.png";
 import Login from "./auth/Login";
 import SignUp from "./auth/SignUp";
 import Verify from "./auth/Verify";
@@ -18,7 +21,12 @@ type Props = {
 };
 
 const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
+  const { user } = useSelector((state: any) => ({
+    user: state.auth.user,
+  }));
+
   const [active, setActive] = useState(false);
+
   const [openSideBar, setOpenSideBar] = useState(false);
 
   if (typeof window !== "undefined") {
@@ -70,6 +78,24 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
                   onClick={() => setOpenSideBar(true)}
                 />
               </div>
+              
+              {/* {user ? (
+                <Link href={`/profile`}>
+                  <Image
+                    src={user?.avatar ? user?.avatar.url : Avatar}
+                    alt="profile_avatar"
+                    className="w-[30px] h-[30px] rounded-full cursor-pointer"
+                    width={30}
+                    height={30}
+                  />
+                </Link>
+              ) : (
+                <HiOutlineUserCircle
+                  size={25}
+                  className="hidden 800px:block cursor-pointer dark:text-white text-black"
+                  onClick={() => setOpen(true)}
+                />
+              )} */}
               <HiOutlineUserCircle
                 size={25}
                 className="hidden 800px:block cursor-pointer dark:text-white text-black"
@@ -78,6 +104,7 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
             </div>
           </div>
         </div>
+
         {/* mobile sidebar */}
         {openSideBar && (
           <div
