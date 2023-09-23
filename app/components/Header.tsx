@@ -1,29 +1,38 @@
 "use client";
+import { useSocialAuthMutation } from "@/redux/features/auth/authApi";
 import CustomModal from "@/utils/Sections/CustomModal";
 import NavItems from "@/utils/Sections/NavItems";
 import ThemeSwitcher from "@/utils/Sections/ThemeSwitcher";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { HiOutlineMenuAlt3, HiOutlineUserCircle } from "react-icons/hi";
 import { useSelector } from "react-redux";
 import Avatar from "../../public/assets/images/avatar.png";
 import Login from "./auth/Login";
 import SignUp from "./auth/SignUp";
 import Verify from "./auth/Verify";
+import toast from "react-hot-toast";
 
 type Props = {
-  open: boolean;
-  setOpen: (open: boolean) => void;
-  activeItem: number;
-  route: string;
-  setRoute: (route: string) => void;
+  // open: boolean;
+  // setOpen: (open: boolean) => void;
+  // activeItem: number;
+  // route: string;
+  // setRoute: (route: string) => void;
 };
 
-const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
+const Header: FC<Props> = ({}) => {
   const { user } = useSelector((state: any) => ({
     user: state.auth.user,
   }));
+  const { data } = useSession();
+  const [socialAuth, { isSuccess, error }] = useSocialAuthMutation();
+
+  const [open, setOpen] = useState(false);
+  const [activeItem, setActiveItem] = useState(0);
+  const [route, setRoute] = useState("Login");
 
   const [active, setActive] = useState(false);
 
@@ -44,6 +53,21 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
       setOpenSideBar(false);
     }
   };
+
+  useEffect(() => {
+    if (!user) {
+      if (data) {
+        socialAuth({
+          email: data?.user?.email,
+          name: data?.user?.name,
+          avatar: data?.user?.image,
+        });
+      }
+    }
+    if (isSuccess) {
+      toast.success("Logged in successfully");
+    }
+  }, [data, user]);
 
   return (
     <div className="w-full relative">
@@ -78,8 +102,8 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
                   onClick={() => setOpenSideBar(true)}
                 />
               </div>
-              
-              {/* {user ? (
+
+              {user ? (
                 <Link href={`/profile`}>
                   <Image
                     src={user?.avatar ? user?.avatar.url : Avatar}
@@ -95,12 +119,7 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
                   className="hidden 800px:block cursor-pointer dark:text-white text-black"
                   onClick={() => setOpen(true)}
                 />
-              )} */}
-              <HiOutlineUserCircle
-                size={25}
-                className="hidden 800px:block cursor-pointer dark:text-white text-black"
-                onClick={() => setOpen(true)}
-              />
+              )}
             </div>
           </div>
         </div>

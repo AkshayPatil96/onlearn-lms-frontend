@@ -1,13 +1,13 @@
 "use client";
-import React from "react";
+import React, { FC } from "react";
+import styles from "./custom.module.scss";
 
 type Props = {};
 
-const Loader = (props: Props) => {
+const Loader: FC<Props> = (props) => {
   return (
-    <div className="lds-ripple">
-      <div></div>
-      <div></div>
+    <div className={`flex justify-center items-center h-screen`}>
+      <div className={`${styles.loader}`}></div>
     </div>
   );
 };

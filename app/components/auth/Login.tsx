@@ -1,5 +1,6 @@
 "use client";
 import { useLoginMutation } from "@/redux/features/auth/authApi";
+import { signIn } from "next-auth/react";
 import { styles } from "../../styles/style";
 import { useFormik } from "formik";
 import React, { FC, useEffect, useState } from "react";
@@ -137,10 +138,16 @@ const Login: FC<Props> = ({ setRoute, setOpen }) => {
             <FcGoogle
               size={30}
               className="cursor-pointer mr-3"
-            />
+              onClick={() => {
+                signIn("google");
+              }}
+              />
             <AiFillGithub
               size={30}
               className="cursor-pointer ml-3"
+              onClick={() => {
+                signIn("github");
+              }}
             />
           </div>
           <h5 className="text-center pt-4 font-Poppins text-[14px]">
