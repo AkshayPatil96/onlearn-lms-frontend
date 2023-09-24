@@ -14,14 +14,9 @@ const Page: FC<Props> = () => {
         description="OnLearn is a platform for students to learn and get help from mentors"
         keywords="Coding, Programming, Learning, Education, MERN Stack, Machine Learning, Artificial Intelligence, AI"
       />
-      <Header
-      // open={open}
-      // setOpen={setOpen}
-      // activeItem={activeItem}
-      // route={route}
-      // setRoute={setRoute}
-      />
-      {/* <div className="hero_animation w-[500px] rounded-full h-[500px] border"></div> */}
+
+      <Header />
+
       <Hero />
     </>
   );

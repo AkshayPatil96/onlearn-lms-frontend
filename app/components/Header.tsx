@@ -1,5 +1,8 @@
 "use client";
-import { useSocialAuthMutation } from "@/redux/features/auth/authApi";
+import {
+  useLogoutQuery,
+  useSocialAuthMutation,
+} from "@/redux/features/auth/authApi";
 import CustomModal from "@/utils/Sections/CustomModal";
 import NavItems from "@/utils/Sections/NavItems";
 import ThemeSwitcher from "@/utils/Sections/ThemeSwitcher";
@@ -14,6 +17,7 @@ import Login from "./auth/Login";
 import SignUp from "./auth/SignUp";
 import Verify from "./auth/Verify";
 import toast from "react-hot-toast";
+import { usePathname } from "next/navigation";
 
 type Props = {
   // open: boolean;
@@ -24,6 +28,7 @@ type Props = {
 };
 
 const Header: FC<Props> = ({}) => {
+  const pathname = usePathname();
   const { user } = useSelector((state: any) => ({
     user: state.auth.user,
   }));
@@ -38,9 +43,15 @@ const Header: FC<Props> = ({}) => {
 
   const [openSideBar, setOpenSideBar] = useState(false);
 
+  const [logout, setLogout] = useState(false);
+
+  const {} = useLogoutQuery(undefined, {
+    skip: !logout ? true : false,
+  });
+
   if (typeof window !== "undefined") {
     window.addEventListener("scroll", () => {
-      if (window.scrollY > 80) {
+      if (window.scrollY > 85) {
         setActive(true);
       } else {
         setActive(false);
@@ -64,10 +75,19 @@ const Header: FC<Props> = ({}) => {
         });
       }
     }
-    if (isSuccess) {
+    if (isSuccess && data === null) {
       toast.success("Logged in successfully");
     }
+    if (data === null) {
+      setLogout(true);
+    }
   }, [data, user]);
+
+  useEffect(() => {
+    if (pathname?.includes("/profile")) {
+      setActiveItem(5);
+    }
+  }, [pathname]);
 
   return (
     <div className="w-full relative">
@@ -88,17 +108,19 @@ const Header: FC<Props> = ({}) => {
                 OnLearn
               </Link>
             </div>
+
             <div className="flex items-center">
               <NavItems
                 activeItem={activeItem}
                 isMobile={false}
               />
               <ThemeSwitcher />
+
               {/* Only for mobile */}
               <div className="800px:hidden">
                 <HiOutlineMenuAlt3
                   size={25}
-                  className="cursor-pointer dark:text-white text-black"
+                  className="cursor-pointer dark:text-white text-black mr-3"
                   onClick={() => setOpenSideBar(true)}
                 />
               </div>
@@ -108,14 +130,18 @@ const Header: FC<Props> = ({}) => {
                   <Image
                     src={user?.avatar ? user?.avatar.url : Avatar}
                     alt="profile_avatar"
-                    className="w-[30px] h-[30px] rounded-full cursor-pointer"
+                    className={`w-[30px] h-[30px] rounded-full cursor-pointer ${
+                      activeItem === 5
+                        ? "border-[2px] dark:border-[#ffc107] border-[#37a39a]"
+                        : "none"
+                    }`}
                     width={30}
                     height={30}
                   />
                 </Link>
               ) : (
                 <HiOutlineUserCircle
-                  size={25}
+                  size={30}
                   className="hidden 800px:block cursor-pointer dark:text-white text-black"
                   onClick={() => setOpen(true)}
                 />
@@ -136,13 +162,39 @@ const Header: FC<Props> = ({}) => {
                 activeItem={activeItem}
                 isMobile={true}
               />
-              <HiOutlineUserCircle
-                size={25}
-                className="cursor-pointer ml-2 my-2 dark:text-white text-black"
-                onClick={() => setOpen(true)}
-              />
+
+              {user ? (
+                <Link
+                  href={`/profile`}
+                  className={`flex items-center`}
+                >
+                  <Image
+                    src={user?.avatar ? user?.avatar.url : Avatar}
+                    alt="profile_avatar"
+                    className={`w-[30px] h-[30px] rounded-full cursor-pointer ml-6`}
+                    width={30}
+                    height={30}
+                  />
+                  <span className="block text-[20px] ml-2 font-Poppins font-[400] dark:text-white text-black">
+                    {user?.name}
+                  </span>
+                </Link>
+              ) : (
+                <div className="flex items-center">
+                  <HiOutlineUserCircle
+                    size={30}
+                    className="cursor-pointer ml-6 my-2 dark:text-white text-black"
+                    onClick={() => setOpen(true)}
+                  />
+                  <span className="block text-[20px] ml-2 font-Poppins font-[400] dark:text-white text-black">
+                    Profile
+                  </span>
+                </div>
+              )}
+
               <br />
               <br />
+
               <p className="text-[16px] px-2 pl-5 text-black dark:text-white">
                 Copyright © {new Date().getFullYear()} OnLearn
               </p>
