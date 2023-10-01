@@ -1,10 +1,10 @@
 "use client";
+import { useActivationMutation } from "@/redux/features/auth/authApi";
 import React, { FC, useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 import { VscWorkspaceTrusted } from "react-icons/vsc";
 import { useSelector } from "react-redux";
-import { styles } from "../../styles/style";
-import { useActivationMutation } from "@/redux/features/auth/authApi";
+import { styles } from "../../../styles/style";
 
 type Props = {
   setRoute: (route: string) => void;

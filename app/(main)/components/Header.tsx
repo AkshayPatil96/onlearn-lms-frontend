@@ -12,7 +12,8 @@ import Link from "next/link";
 import React, { FC, useEffect, useState } from "react";
 import { HiOutlineMenuAlt3, HiOutlineUserCircle } from "react-icons/hi";
 import { useSelector } from "react-redux";
-import Avatar from "../../public/assets/images/avatar.png";
+// import Avatar from "@/public/assets/images/avatar.png";
+import Avatar from "@/public/assets/images/avatar.png";
 import Login from "./auth/Login";
 import SignUp from "./auth/SignUp";
 import Verify from "./auth/Verify";
@@ -114,7 +115,9 @@ const Header: FC<Props> = ({}) => {
                 activeItem={activeItem}
                 isMobile={false}
               />
-              <ThemeSwitcher />
+              <div className="mx-4">
+                <ThemeSwitcher />
+              </div>
 
               {/* Only for mobile */}
               <div className="800px:hidden">

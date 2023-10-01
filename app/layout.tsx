@@ -5,8 +5,9 @@ import { ThemeProvider } from "@/utils/theme-provider";
 import { SessionProvider } from "next-auth/react";
 import { Josefin_Sans, Poppins } from "next/font/google";
 import { Toaster } from "react-hot-toast";
-import { Providers } from "./Provider";
-import "./globals.scss";
+import "@/app/globals.scss";
+import Header from "./(main)/components/Header";
+import { Providers } from "@/app/Provider";
 
 const poppins = Poppins({
   subsets: ["latin"],

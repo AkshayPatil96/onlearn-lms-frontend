@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { FC } from "react";
 import { AiOutlineUnorderedList } from "react-icons/ai";
-import avatarDefault from "../../../public/assets/images/avatar.png";
+import avatarDefault from "@/public/assets/images/avatar.png";
 
 type Props = {
   item: any;

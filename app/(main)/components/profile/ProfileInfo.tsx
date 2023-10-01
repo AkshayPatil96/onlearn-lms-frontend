@@ -9,7 +9,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { AiOutlineCamera } from "react-icons/ai";
-import avatarDefault from "../../../public/assets/images/avatar.png";
+import avatarDefault from "@/public/assets/images/avatar.png";
 
 type Props = {
   user: any;

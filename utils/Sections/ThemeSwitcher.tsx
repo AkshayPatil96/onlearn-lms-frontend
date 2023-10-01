@@ -1,4 +1,5 @@
 "use client";
+import { IconButton, Tooltip } from "@mui/material";
 import { useTheme } from "next-themes";
 import React, { FC, useEffect, useState } from "react";
 import { BiMoon, BiSun } from "react-icons/bi";
@@ -16,20 +17,39 @@ const ThemeSwitcher: FC<Props> = (props) => {
   if (!mounted) return null;
 
   return (
-    <div className="flex items-center justify-center mx-4">
+    <div className="flex items-center justify-center">
       {theme === "light" ? (
-        <BiMoon
-          className="cursor-pointer"
-          fill="black"
-          size={25}
-          onClick={() => setTheme("dark")}
-        />
+        <Tooltip
+          title={<span>Theme</span>}
+          placement="bottom"
+          arrow
+        >
+          <IconButton className="dark:text-white">
+            <BiMoon
+              className="cursor-pointer"
+              size={25}
+              onClick={() => {
+                setTheme("dark");
+              }}
+            />
+          </IconButton>
+        </Tooltip>
       ) : (
-        <BiSun
-          className="cursor-pointer"
-          size={25}
-          onClick={() => setTheme("light")}
-        />
+        <Tooltip
+          title={<span>Theme</span>}
+          placement="bottom"
+          arrow
+        >
+          <IconButton className="dark:text-white">
+            <BiSun
+              className="cursor-pointer"
+              size={25}
+              onClick={() => {
+                setTheme("light");
+              }}
+            />
+          </IconButton>
+        </Tooltip>
       )}
     </div>
   );

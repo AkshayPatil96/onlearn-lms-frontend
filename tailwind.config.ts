@@ -26,7 +26,35 @@ const config: Config = {
         "1300px": "1300px",
         "1500px": "1500px",
         "800px": "800px",
+        "500px": "500px",
         "400px": "400px",
+      },
+      animation: {
+        "pulse-slow": "pulse 2s linear 3",
+        "spin-once": "spin 750ms linear 1",
+        "spin-twice": "spin 750ms linear 2",
+        "spin-trice": "spin 750ms linear 3",
+        shake: "shake 0.82s cubic-bezier(.36,.07,.19,.97) both",
+      },
+      keyframes: {
+        wiggle: {
+          "0%, 100%": { transform: "rotate(-3deg)" },
+          "50%": { transform: "rotate(3deg)" },
+        },
+        shake: {
+          "10%, 90%": {
+            transform: "translate3d(-1px, 0, 0)",
+          },
+          "20%, 80%": {
+            transform: "translate3d(2px, 0, 0)",
+          },
+          "30%, 50%, 70%": {
+            transform: "translate3d(-2px, 0, 0)",
+          },
+          "40%, 60%": {
+            transform: "translate3d(2px, 0, 0)",
+          },
+        },
       },
     },
   },

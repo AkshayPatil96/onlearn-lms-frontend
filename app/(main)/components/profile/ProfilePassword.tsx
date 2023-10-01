@@ -100,7 +100,7 @@ const ProfilePassword: FC<Props> = ({ user, logoutHandler }) => {
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
             <button
-              className={`w-[95%] h-[40px] border border-[#37a39a] text-center text-black dark:text-[#fff] rounded-[3px] mt-8 cursor-pointer hover:bg-[#37a39a] hover:text-white transition-all duration-300`}
+              className={`w-full 800px:w-[250px] h-[40px] border border-[#37a39a] text-center dark:text-[#fff] text-black rounded-[3px] mt-8 cursor-pointer hover:bg-[#37a39a] hover:text-white transition-all duration-300`}
               type="submit"
               disabled={isLoading}
             >
@@ -113,7 +113,6 @@ const ProfilePassword: FC<Props> = ({ user, logoutHandler }) => {
               ) : (
                 "Update"
               )}
-              Update
             </button>
           </div>
         </form>

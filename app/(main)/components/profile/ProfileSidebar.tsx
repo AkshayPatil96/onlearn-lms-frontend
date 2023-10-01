@@ -2,8 +2,10 @@ import Image from "next/image";
 import React, { FC } from "react";
 import { AiOutlineLogout } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
+import { MdOutlineDashboard } from "react-icons/md";
 import { SiCoursera } from "react-icons/si";
-import avatarDefault from "../../../public/assets/images/avatar.png";
+import avatarDefault from "@/public/assets/images/avatar.png";
+import Link from "next/link";
 
 type Props = {
   user: any;
@@ -43,6 +45,24 @@ const ProfileSidebar: FC<Props> = ({
           My Account
         </h5>
       </div>
+
+      {user?.role === "admin" ? (
+        <Link
+          className={`w-full flex items-center px-3 py-4 cursor-pointer hover:bg-[#e0e0e0] dark:hover:bg-slate-800 bg-transparent`}
+          href={"/admin"}
+          passHref
+        >
+          <MdOutlineDashboard
+            size={30}
+            fill={"#aaaaaa"}
+          />
+          <h5
+            className={`pl-3 800px:block hidden text-lg font-Poppins dark:text-white text-black`}
+          >
+            Admin Dashboard
+          </h5>
+        </Link>
+      ) : null}
 
       <div
         className={`w-full flex items-center px-3 py-4 cursor-pointer hover:bg-[#e0e0e0] dark:hover:bg-slate-800 ${

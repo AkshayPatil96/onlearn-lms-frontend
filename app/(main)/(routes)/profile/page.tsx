@@ -2,10 +2,9 @@
 // import Protected from "@/app/hooks/useProtected";
 import Heading from "@/utils/Sections/Heading";
 import React, { FC } from "react";
-import Header from "../components/Header";
 import { redirect } from "next/navigation";
 import { useSelector } from "react-redux";
-import Profile from "../components/profile/Profile";
+import Profile from "../../components/profile/Profile";
 
 interface Props {}
 
@@ -19,7 +18,7 @@ const ProfilePage: FC<Props> = ({}) => {
         description="OnLearn is a platform for students to learn and get help from mentors"
         keywords="Coding, Programming, Learning, Education, MERN Stack, Machine Learning, Artificial Intelligence, AI"
       />
-      <Header />
+      {/* <Header /> */}
 
       <Profile user={user} />
     </>
