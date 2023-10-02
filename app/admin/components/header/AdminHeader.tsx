@@ -1,26 +1,15 @@
 "use client";
+
 import Logo from "@/public/assets/logo/logo.svg";
 import ThemeSwitcher from "@/utils/Sections/ThemeSwitcher";
-import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
-import {
-  Avatar,
-  Badge,
-  Button,
-  IconButton,
-  Menu,
-  MenuItem,
-  Tooltip,
-  Typography,
-} from "@mui/material";
+import { Button, IconButton, Tooltip } from "@mui/material";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
 import React, { FC, useEffect, useRef, useState } from "react";
-import { BsDot } from "react-icons/bs";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { MdNotificationsNone } from "react-icons/md";
 import { RiAccountCircleFill } from "react-icons/ri";
-import { useSelector } from "react-redux";
 import { format } from "timeago.js";
 
 let notifications = [
@@ -119,7 +108,7 @@ const AdminHeader: FC<Props> = ({ isCollapsed, setIsCollapsed, user }) => {
   }, [onClickOutsideMenu]);
 
   return (
-    <div className="w-full h-[9%] dark:bg-[#0d141d] bg-[#fff] border-b-2 dark:border-gray-500 border-gray-300 shadow flex items-center justify-between 800px:px-6 px-2 mb-2">
+    <div className="w-full h-[10vh] dark:bg-[#101924] bg-[#fff] border-b-2 dark:border-gray-500 border-gray-300 shadow flex items-center justify-between 800px:px-6 px-2">
       <div className="flex 800px:gap-4 gap-2 items-center">
         {isCollapsed ? (
           <HiOutlineMenuAlt3
@@ -130,15 +119,20 @@ const AdminHeader: FC<Props> = ({ isCollapsed, setIsCollapsed, user }) => {
             }}
           />
         ) : null}
-        <Image
-          src={Logo}
-          alt="logo"
-          width={100}
-          height={100}
+
+        <Link
+          href={`/`}
           className={`${
             !isCollapsed ? "hidden" : "flex"
           } transition-all duration-300`}
-        />
+        >
+          <Image
+            src={Logo}
+            alt="logo"
+            width={125}
+            height={125}
+          />
+        </Link>
       </div>
       <div className="flex gap-0 items-center 800px:gap-4 800px:mr-5">
         <div>
@@ -152,7 +146,17 @@ const AdminHeader: FC<Props> = ({ isCollapsed, setIsCollapsed, user }) => {
               arrow
             >
               <Button className="dark:text-white flex border items-center gap-1">
-                <RiAccountCircleFill className="text-[28px] 800px:text-[38px]" />
+                {user?.avatar ? (
+                  <Image
+                    src={user?.avatar?.url}
+                    alt="profile_pic"
+                    width={32}
+                    height={32}
+                    className="w-[42px] h-[42px] cursor-pointer border-[2px] border-[#6870fa] rounded-full"
+                  />
+                ) : (
+                  <RiAccountCircleFill className="text-[28px] 800px:text-[38px]" />
+                )}
                 <div className="800px:inline-block hidden">
                   <p className="text-[12px] text-left font-[500] text-[#6870fa]">
                     Administrator

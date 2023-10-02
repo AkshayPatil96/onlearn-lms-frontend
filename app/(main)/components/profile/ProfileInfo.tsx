@@ -1,4 +1,5 @@
 import { styles } from "@/app/styles/style";
+import avatarDefault from "@/public/assets/images/avatar.png";
 import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
 import {
   useUpdateAvatarMutation,
@@ -9,7 +10,6 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { AiOutlineCamera } from "react-icons/ai";
-import avatarDefault from "@/public/assets/images/avatar.png";
 
 type Props = {
   user: any;
@@ -41,18 +41,16 @@ const ProfileInfo: React.FC<Props> = ({ user, avatar }) => {
   }, [user]);
 
   const imageUploader = async (e: any) => {
-    console.log("====>");
-    var file = e.target.files[0];
-    let url = URL.createObjectURL(e.target.files[0]);
-    // const formData = new FormData();
-    // formData.append("image", file);
-    // console.log("formData: ", formData);
-    await updateAvatar({ avatar: url });
+    const fileReader = new FileReader();
 
-    // fileReader.onload = () => {
-    //   if (fileReader.readyState === 2) {
-    //   }
-    // };
+    fileReader.onload = () => {
+      console.log("fileReader: ", fileReader);
+      if (fileReader.readyState === 2) {
+        const avatar = fileReader.result;
+        updateAvatar({ avatar });
+      }
+    };
+    fileReader.readAsDataURL(e.target.files[0]);
   };
 
   useEffect(() => {

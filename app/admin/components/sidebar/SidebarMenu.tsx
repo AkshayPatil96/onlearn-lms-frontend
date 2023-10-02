@@ -1,13 +1,13 @@
-import clsx from "clsx";
+import avatarDefault from "@/public/assets/images/avatar.png";
+import Logo from "@/public/assets/logo/logo.svg";
 import { Box, IconButton, Tooltip, Typography } from "@mui/material";
+import clsx from "clsx";
 import { useTheme } from "next-themes";
+import Image from "next/image";
 import Link from "next/link";
 import React, { FC, useEffect, useState } from "react";
 import { HiOutlineMenuAlt3, HiOutlineUserCircle } from "react-icons/hi";
 import { Menu, MenuItem, Sidebar } from "react-pro-sidebar";
-import avatarDefault from "@/public/assets/images/avatar.png";
-import Image from "next/image";
-import Logo from "@/public/assets/logo/logo.svg";
 import {
   ArrowBackIosIcon,
   ArrowForwardIosIcon,
@@ -65,7 +65,7 @@ const SidebarMenu: FC<Props> = ({
             <Box
               display="flex"
               alignItems="center"
-              gap="10px"
+              gap="6px"
               // className="border"
             >
               <IconButton
@@ -88,8 +88,8 @@ const SidebarMenu: FC<Props> = ({
                 <Image
                   src={Logo}
                   alt="logo"
-                  width={100}
-                  height={100}
+                  width={125}
+                  height={125}
                 />
               </Link>
             </Box>
@@ -137,8 +137,8 @@ const SidebarMenu: FC<Props> = ({
           </Typography>
           <Item
             title="Create Course"
-            value="create-course"
-            to="/admin/create-course"
+            value="create"
+            to="/admin/courses/create"
             icon={<VideoCallIcon />}
             selected={selected}
           />

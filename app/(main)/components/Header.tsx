@@ -19,6 +19,7 @@ import SignUp from "./auth/SignUp";
 import Verify from "./auth/Verify";
 import toast from "react-hot-toast";
 import { usePathname } from "next/navigation";
+import Logo from "@/public/assets/logo/logo.svg";
 
 type Props = {
   // open: boolean;
@@ -100,15 +101,18 @@ const Header: FC<Props> = ({}) => {
         }`}
       >
         <div className="w-[95%] 800px:w-[92%] m-auto py-2 h-full">
-          <div className="w-full h-[80px] flex items-center justify-between p-3">
-            <div>
-              <Link
-                href={"/"}
-                className={`text-[25px] font-Poppins font-[500] text-black dark:text-white`}
-              >
-                OnLearn
-              </Link>
-            </div>
+          <div className="w-full h-[100%] flex items-center justify-between p-3">
+            <Link
+              href={"/"}
+              className={`text-[25px] font-Poppins font-[500] text-black dark:text-white`}
+            >
+              <Image
+                src={Logo}
+                alt="logo"
+                width={125}
+                height={125}
+              />
+            </Link>
 
             <div className="flex items-center">
               <NavItems

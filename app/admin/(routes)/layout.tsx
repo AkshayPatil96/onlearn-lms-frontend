@@ -34,7 +34,7 @@ export default function AdminLayout({
               setIsCollapsed={setIsCollapsed}
               user={user}
             />
-            <div className="">{children}</div>
+            <div className="h-[90vh] overflow-y-auto">{children}</div>
           </div>
         </div>
       </AdminProtected>
